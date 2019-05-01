@@ -41,14 +41,15 @@ public class HammingFrame extends JFrame
 	private JLabel hamming = new JLabel("Enter Hamming Dist:");
 	private JSlider hammNum = new JSlider(1, 4);
 	private JTextField num = new JTextField(2 + "");
-	
 	private JTextField bigBox = new JTextField();
 	private JButton stationButt = new JButton("Show Station");
-	
 	private JComboBox dropDownStations = new JComboBox();
 	
+	//Class things 
 	private static final int NUM_STATIONS = 120;
+	private static int hammingDist = 0;
 	public ArrayList<String> stations = new ArrayList<String>();
+	private String stationSelected;
 	
 	public HammingFrame() throws IOException
 	{
@@ -71,6 +72,7 @@ public class HammingFrame extends JFrame
 		
 		JPanel panel6 = new JPanel(new BorderLayout());
 		JPanel panel7 = new JPanel(new BorderLayout());
+		JPanel panel8 = new JPanel(new BorderLayout());
 		//The Slider 
 		hammNum.setSize(200, 50);
 		hammNum.setMajorTickSpacing(1);
@@ -80,20 +82,11 @@ public class HammingFrame extends JFrame
 		
 		hammNum.addChangeListener((e) ->
 		{
-			int val = 0;
-			val = hammNum.getValue();
-			num.setText(val + "");
+			
+			hammingDist = hammNum.getValue();
+			num.setText(hammingDist + "");
 		});
 		
-		
-		//Action Listener for button
-		stationButt.addActionListener((e) ->
-		{
-			//TODO
-			//Display the Text box 
-		});
-		//Big Text Box
-		bigBox.setPreferredSize(new Dimension(100, 40));
 		
 		//Call method to get stations that have the hamming distance
 		//TODO
@@ -104,22 +97,41 @@ public class HammingFrame extends JFrame
 		{
 			dropDownStations.addItem(stations.get(k));
 		}
+		dropDownStations.addActionListener((e) ->
+		{
+			//TODO
+		});
+		//Action Listener for button
+		stationButt.addActionListener((e) ->
+		{
+			//TODO
+			//Display the Text box (Call the method to get ArrayList
+			
+		});
+		//Big Text Box
+		bigBox.setPreferredSize(new Dimension(100, 40));
 		
-		//Embedded Panels
+
+		
+		//Two Main panels
 		panel1.add(panel2, BorderLayout.WEST);
 		panel1.add(panel3, BorderLayout.EAST);
 		
+		//Sub Panels of Panel2
 		panel2.add(panel4, BorderLayout.CENTER);
 		panel4.add(panel5, BorderLayout.CENTER);
 		panel5.add(panel6, BorderLayout.CENTER);
 		panel6.add(panel7, BorderLayout.EAST);
+		panel6.add(panel8, BorderLayout.CENTER);
+		
+		//Add the Components to panel
 		panel2.add(hamming, BorderLayout.NORTH);
 		panel4.add(num, BorderLayout.NORTH);
 		panel5.add(hammNum, BorderLayout.NORTH);
 		panel6.add(bigBox, BorderLayout.NORTH);
 		panel7.add(dropDownStations, BorderLayout.NORTH);
-		
-		//Add to the Frame
+		panel8.add(stationButt, BorderLayout.NORTH);
+		//Add Main panel to the Frame
 		this.add(panel1);
 		
 		//Needed don't touch
@@ -127,7 +139,9 @@ public class HammingFrame extends JFrame
         this.setVisible(true);
        
 	}
-
+	/*
+	 * Method to read from the file
+	 */
 	public void readFile(String fileName) throws IOException 
 	{
 		//Create BufferedReader to read the file 
@@ -149,6 +163,7 @@ public class HammingFrame extends JFrame
 	 */
 	public ArrayList<String> stationCalc(int hamm)
 	{
+		ArrayList <String> stationsHamm = new ArrayList<String>();
 		
 	}
 
