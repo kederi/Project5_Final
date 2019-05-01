@@ -3,6 +3,7 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Point;
@@ -44,6 +45,7 @@ public class HammingFrame extends JFrame
 	private JTextField bigBox = new JTextField();
 	private JButton stationButt = new JButton("Show Station");
 	private JComboBox dropDownStations = new JComboBox();
+	private JLabel compare = new JLabel("Compare With:");
 	
 	//Class things 
 	private static final int NUM_STATIONS = 120;
@@ -73,6 +75,7 @@ public class HammingFrame extends JFrame
 		JPanel panel6 = new JPanel(new BorderLayout());
 		JPanel panel7 = new JPanel(new BorderLayout());
 		JPanel panel8 = new JPanel(new BorderLayout());
+		JPanel panel9 = new JPanel(new FlowLayout());
 		//The Slider 
 		hammNum.setSize(200, 50);
 		hammNum.setMajorTickSpacing(1);
@@ -107,6 +110,9 @@ public class HammingFrame extends JFrame
 		{
 			//TODO
 			//Display the Text box (Call the method to get ArrayList
+			//GIVING A NULL POINTER
+			ArrayList <String> stat = stationCalc(hammingDist, stationSelected);
+			bigBox.setText(stat.toString());
 			
 		});
 		//Big Text Box
@@ -124,13 +130,15 @@ public class HammingFrame extends JFrame
 		panel5.add(panel6, BorderLayout.CENTER);
 		panel6.add(panel7, BorderLayout.EAST);
 		panel6.add(panel8, BorderLayout.CENTER);
+		panel8.add(panel9, BorderLayout.CENTER);
 		
 		//Add the Components to panel
 		panel2.add(hamming, BorderLayout.NORTH);
 		panel4.add(num, BorderLayout.NORTH);
 		panel5.add(hammNum, BorderLayout.NORTH);
 		panel6.add(bigBox, BorderLayout.NORTH);
-		panel7.add(dropDownStations, BorderLayout.NORTH);
+		panel9.add(compare);
+		panel9.add(dropDownStations);
 		panel8.add(stationButt, BorderLayout.NORTH);
 		//Add Main panel to the Frame
 		this.add(panel1);
