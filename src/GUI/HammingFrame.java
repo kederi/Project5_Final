@@ -100,6 +100,7 @@ public class HammingFrame extends JFrame
 		dropDownStations.addActionListener((e) ->
 		{
 			//TODO
+			stationSelected = (String)dropDownStations.getSelectedItem();
 		});
 		//Action Listener for button
 		stationButt.addActionListener((e) ->
@@ -161,10 +162,39 @@ public class HammingFrame extends JFrame
 	/*
 	 * Method to return an ArrayList of Strings given the HammingDistance
 	 */
-	public ArrayList<String> stationCalc(int hamm)
+	public ArrayList<String> stationCalc(int hamm, String station)
 	{
 		ArrayList <String> stationsHamm = new ArrayList<String>();
+		for(int i = 0; i < stations.size(); i++)
+		{
+			int dist = calcHammingDistance(station, stations.get(i));
+			if(dist == hamm)
+			{
+				stationsHamm.add(stations.get(i));
+			}
+		}
+		return stationsHamm;
 		
+	}
+	/*
+	 * Helper method to calculate the hamming distance
+	 */
+	public int calcHammingDistance(String word1, String word2)
+	{
+		int hammingDistance = 0;
+		for(int k = 0; k < 4; k++)
+		{
+			char firstChar = word1.charAt(k);
+			char secondChar = word2.charAt(k);
+			if (!(firstChar == secondChar))
+			{
+				hammingDistance++;
+			}
+		}
+		
+		//Test to see if Hamming dist is outputted
+		//System.out.print(hammingDistance);
+		return hammingDistance;
 	}
 
 	//Create A JPanel to add all components 
