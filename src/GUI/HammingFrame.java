@@ -10,13 +10,21 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -27,17 +35,17 @@ import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Collections;
 
 import javafx.scene.shape.Box;
 
 public class HammingFrame extends JFrame
 {
+	private static final int FRAME_HEIGHT = 700;
 	//Private class constants 
 	private static final int FRAME_WIDTH = 500;
-	private static final int FRAME_HEIGHT = 700;
-	
-
 	//Add the Components
 	private JLabel hamming = new JLabel("Enter Hamming Dist:");
 	private JSlider hammNum = new JSlider(1, 4);
@@ -73,6 +81,8 @@ public class HammingFrame extends JFrame
 	
 	private JButton addStation = new JButton("Add Station");
 	private JTextField addArea = new JTextField("Enter a Station" + "");
+	
+	private JButton soundDisplay = new JButton("Sound Play");
 	//Class things 
 	private static final int NUM_STATIONS = 120;
 	private static int hammingDist = 0;
@@ -139,6 +149,17 @@ public class HammingFrame extends JFrame
 			//TODO
 			stationSelected = (String)dropDownStations.getSelectedItem();
 		});
+		addStation.addActionListener((e) ->
+		{
+			if(addArea.getText().length() == 4)
+			{
+				dropDownStations.addItem(addArea.getText());
+			}
+			else
+			{
+				throw new IllegalArgumentException("Invalid Input");
+			}
+		});
 		//Action Listener for button
 		stationButt.addActionListener((e) ->
 		{
@@ -166,12 +187,34 @@ public class HammingFrame extends JFrame
 			label4.setText(dist[3]+ "");
 			
 		});
-		addStation.addActionListener((e) ->
+		soundDisplay.addActionListener((e) -> 
 		{
-			if(addArea.getText().length() == 4)
+			try
+			{
+				getAudio();
+			}
+			catch(IOException file)
 			{
 				
 			}
+			catch(LineUnavailableException line)
+			{
+				
+			}
+			catch(UnsupportedAudioFileException aud)
+			{
+				
+			}
+			try {
+				BufferedImage myPicture = ImageIO.read(new File("Sans_Undertale.jpg"));
+				JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+				panel2.add(picLabel);
+			}
+			catch(IOException image)
+			{
+				
+			}
+
 		});
 		//Big Text Box
 		bigBox.setPreferredSize(new Dimension(200, 150));
@@ -185,6 +228,7 @@ public class HammingFrame extends JFrame
 		panel1.add(panel7);
 		panel1.add(panel8);
 		
+		panel2.add(soundDisplay);
 		 
 		
 		//Add the Components to panel
@@ -314,6 +358,15 @@ public class HammingFrame extends JFrame
 		//System.out.println(nodes);
 		return nodes;
 		
+	}
+	public void getAudio()throws UnsupportedAudioFileException, 
+    IOException, LineUnavailableException  
+	{
+		String soundName = "Undertale_Sound.wav";    
+		AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioInputStream);
+		clip.start();
 	}
 
 	//Create A JPanel to add all components 
