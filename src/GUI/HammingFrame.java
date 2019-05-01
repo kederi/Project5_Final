@@ -47,11 +47,32 @@ public class HammingFrame extends JFrame
 	private JButton stationButt = new JButton("Show Station");
 	private JComboBox dropDownStations = new JComboBox();
 	
-	private JLabel compare = new JLabel("Compare With");
+	
+	
+	private JLabel compare = new JLabel("Compare With ");
 	
 	//Part 2 Components
-	private JLabel hd = new JLabel("Calculate HD:");
+	private JButton hd = new JButton("Calculate HD:");
 	
+	
+	//HD Labels
+	private JLabel dist0 = new JLabel("Distance 0 ");
+	private JLabel dist1 = new JLabel("Distance 1 ");
+	private JLabel dist2 = new JLabel("Distance 2 ");
+	private JLabel dist3 = new JLabel("Distance 3 ");
+	private JLabel dist4 = new JLabel("Distance 4 ");
+	
+	
+	//TextField for corrosponding label
+	private JTextField label0 = new JTextField(0 + "");
+	private JTextField label1 = new JTextField(0 + "");
+	private JTextField label2 = new JTextField(0 + "");
+	private JTextField label3 = new JTextField(0 + "");
+	private JTextField label4 = new JTextField(0 + "");
+	
+	
+	private JButton addStation = new JButton("Add Station");
+	private JTextField addArea = new JTextField("Enter a Station" + "");
 	//Class things 
 	private static final int NUM_STATIONS = 120;
 	private static int hammingDist = 0;
@@ -76,6 +97,9 @@ public class HammingFrame extends JFrame
 		JPanel panel4 = new JPanel (new BorderLayout());
 		
 		JPanel panel5 = new JPanel (new BorderLayout());
+		JPanel panel6 = new JPanel (new BorderLayout());
+		JPanel panel7 = new JPanel(new GridLayout(5,2));
+		JPanel panel8 = new JPanel(new BorderLayout());
 		//Four Panel
 		/*JPanel panel4 = new JPanel (new BorderLayout());
 		JPanel panel5 = new JPanel(new BorderLayout());
@@ -130,48 +154,51 @@ public class HammingFrame extends JFrame
 			//bigBox.setText(stat.toString());
 			
 		});
+		
+		hd.addActionListener((e) ->
+		{
+			//TODO
+		});
 		//Big Text Box
 		bigBox.setPreferredSize(new Dimension(200, 150));
 
 		
-		//Two Main panels
+		//Add to the Main panel
 		panel1.add(panel3);
 		panel1.add(panel4);
 		panel1.add(panel5);
+		panel1.add(panel6);
+		panel1.add(panel7);
+		panel1.add(panel8);
 		
-		//Sub Panels of Panel2
-		/*panel2.add(panel4, BorderLayout.CENTER);
-		panel4.add(panel5, BorderLayout.CENTER);
-		panel5.add(panel6, BorderLayout.CENTER);
-		panel6.add(panel7, BorderLayout.EAST);
-		panel6.add(panel8, BorderLayout.CENTER);
-		panel8.add(panel9, BorderLayout.CENTER);
-		panel9.add(panel10, BorderLayout.CENTER);
-		//panel9.add(panel11, BorderLayout.CENTER);
-		//panel11.add(panel12, BorderLayout.CENTER);
-		 * */
 		 
 		
 		//Add the Components to panel
 		panel3.add(hamming, BorderLayout.WEST);
 		panel3.add(num, BorderLayout.EAST);
 		panel3.add(hammNum, BorderLayout.SOUTH);
-		//this.add(bigBox);
-		//panel4.add(compare, BorderLayout.WEST);
-		//panel4.add(dropDownStations, BorderLayout.EAST);
-		/*
-		panel5.add(hammNum, BorderLayout.NORTH);
-		panel6.add(bigBox, BorderLayout.NORTH);
-		panel10.add(compare);
-		panel10.add(dropDownStations);
-		panel8.add(stationButt, BorderLayout.NORTH);
-		//panel12.add(hd, BorderLayout.CENTER);
-		**/
+
+		
 		panel4.add(stationButt, BorderLayout.NORTH);
 		panel4.add(bigBox, BorderLayout.SOUTH);
 		panel5.add(compare, BorderLayout.WEST);
 		panel5.add(dropDownStations, BorderLayout.EAST);
+		panel6.add(hd, BorderLayout.NORTH);
 		
+		//Add to grid panel
+		panel7.add(dist0);
+		panel7.add(label0);
+		panel7.add(dist1);
+		panel7.add(label1);
+		panel7.add(dist2);
+		panel7.add(label2);
+		panel7.add(dist3);
+		panel7.add(label3);
+		panel7.add(dist4);
+		panel7.add(label4);
+		
+		panel8.add(addStation, BorderLayout.WEST);
+		panel8.add(addArea, BorderLayout.EAST);
 		//Add Main panel to the Frame
 		this.add(panel1);
 		this.add(panel2);
@@ -237,6 +264,42 @@ public class HammingFrame extends JFrame
 		//Test to see if Hamming dist is outputted
 		//System.out.print(hammingDistance);
 		return hammingDistance;
+	}
+	/*
+	 * 
+	 */
+	public int [] calcNodeDistance(String word)
+	{
+		int [] nodes = {0, 0, 0, 0};
+		for (int k = 0; k < stations.size(); ++k)
+		{
+			String words = stations.get(k);
+			int hamming = calcHammingDistance(word, words);
+			if(hamming == 4)
+			{
+				if (!words.equals(word))
+					nodes[3]++;
+			}
+			else if (hamming == 3)
+			{
+				if (!words.equals(word))
+					nodes[2]++;
+			}
+			else if (hamming == 2)
+			{
+				if(!words.equals(word))
+					nodes[1]++;
+			}
+			else if (hamming == 1)
+			{
+				if(!words.equals(word))
+					nodes[0]++;
+			}
+		}
+		//Test to see if nodes are put in Array
+		//System.out.println(nodes);
+		return nodes;
+		
 	}
 
 	//Create A JPanel to add all components 
