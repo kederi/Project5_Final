@@ -42,10 +42,15 @@ public class HammingFrame extends JFrame
 	private JLabel hamming = new JLabel("Enter Hamming Dist:");
 	private JSlider hammNum = new JSlider(1, 4);
 	private JTextField num = new JTextField(2 + "");
-	private JTextField bigBox = new JTextField();
+	private JTextArea bigBox = new JTextArea();
+	
 	private JButton stationButt = new JButton("Show Station");
 	private JComboBox dropDownStations = new JComboBox();
-	private JLabel compare = new JLabel("Compare With:");
+	
+	private JLabel compare = new JLabel("Compare With");
+	
+	//Part 2 Components
+	private JLabel hd = new JLabel("Calculate HD:");
 	
 	//Class things 
 	private static final int NUM_STATIONS = 120;
@@ -57,25 +62,30 @@ public class HammingFrame extends JFrame
 	{
 		super("Hamming Distance");
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		this.setLayout(new GridLayout(1,1));
+		this.setLayout(new GridLayout(1,2));
 		readFile("Mesonet.txt");
 		
 		
 		//First Panel
-		JPanel panel1 = new JPanel(new BorderLayout());
+		JPanel panel1 = new JPanel();
+		JPanel panel2 = new JPanel();
 		
 		//Second Panel
-		JPanel panel2 = new JPanel (new BorderLayout());
-		//Third Panel
 		JPanel panel3 = new JPanel (new BorderLayout());
-		//Four Panel
+		//Third Panel
 		JPanel panel4 = new JPanel (new BorderLayout());
+		
+		JPanel panel5 = new JPanel (new BorderLayout());
+		//Four Panel
+		/*JPanel panel4 = new JPanel (new BorderLayout());
 		JPanel panel5 = new JPanel(new BorderLayout());
 		
 		JPanel panel6 = new JPanel(new BorderLayout());
 		JPanel panel7 = new JPanel(new BorderLayout());
 		JPanel panel8 = new JPanel(new BorderLayout());
-		JPanel panel9 = new JPanel(new FlowLayout());
+		JPanel panel9 = new JPanel(new BorderLayout());
+		JPanel panel10 = new JPanel(new FlowLayout());
+		*/
 		//The Slider 
 		hammNum.setSize(200, 50);
 		hammNum.setMajorTickSpacing(1);
@@ -111,43 +121,67 @@ public class HammingFrame extends JFrame
 			//TODO
 			//Display the Text box (Call the method to get ArrayList
 			//GIVING A NULL POINTER
+			bigBox.setText(null);
 			ArrayList <String> stat = stationCalc(hammingDist, stationSelected);
-			bigBox.setText(stat.toString());
+			for(int k = 0; k < stat.size(); k++)
+			{
+				bigBox.append(stat.get(k) + "\n");
+			}
+			//bigBox.setText(stat.toString());
 			
 		});
 		//Big Text Box
-		bigBox.setPreferredSize(new Dimension(100, 40));
-		
+		bigBox.setPreferredSize(new Dimension(200, 150));
 
 		
 		//Two Main panels
-		panel1.add(panel2, BorderLayout.WEST);
-		panel1.add(panel3, BorderLayout.EAST);
+		panel1.add(panel3);
+		panel1.add(panel4);
+		panel1.add(panel5);
 		
 		//Sub Panels of Panel2
-		panel2.add(panel4, BorderLayout.CENTER);
+		/*panel2.add(panel4, BorderLayout.CENTER);
 		panel4.add(panel5, BorderLayout.CENTER);
 		panel5.add(panel6, BorderLayout.CENTER);
 		panel6.add(panel7, BorderLayout.EAST);
 		panel6.add(panel8, BorderLayout.CENTER);
 		panel8.add(panel9, BorderLayout.CENTER);
+		panel9.add(panel10, BorderLayout.CENTER);
+		//panel9.add(panel11, BorderLayout.CENTER);
+		//panel11.add(panel12, BorderLayout.CENTER);
+		 * */
+		 
 		
 		//Add the Components to panel
-		panel2.add(hamming, BorderLayout.NORTH);
-		panel4.add(num, BorderLayout.NORTH);
+		panel3.add(hamming, BorderLayout.WEST);
+		panel3.add(num, BorderLayout.EAST);
+		panel3.add(hammNum, BorderLayout.SOUTH);
+		//this.add(bigBox);
+		//panel4.add(compare, BorderLayout.WEST);
+		//panel4.add(dropDownStations, BorderLayout.EAST);
+		/*
 		panel5.add(hammNum, BorderLayout.NORTH);
 		panel6.add(bigBox, BorderLayout.NORTH);
-		panel9.add(compare);
-		panel9.add(dropDownStations);
+		panel10.add(compare);
+		panel10.add(dropDownStations);
 		panel8.add(stationButt, BorderLayout.NORTH);
+		//panel12.add(hd, BorderLayout.CENTER);
+		**/
+		panel4.add(stationButt, BorderLayout.NORTH);
+		panel4.add(bigBox, BorderLayout.SOUTH);
+		panel5.add(compare, BorderLayout.WEST);
+		panel5.add(dropDownStations, BorderLayout.EAST);
+		
 		//Add Main panel to the Frame
 		this.add(panel1);
+		this.add(panel2);
+
 		
 		//Needed don't touch
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
        
-	}
+}
 	/*
 	 * Method to read from the file
 	 */
