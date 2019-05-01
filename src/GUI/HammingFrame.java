@@ -158,6 +158,20 @@ public class HammingFrame extends JFrame
 		hd.addActionListener((e) ->
 		{
 			//TODO
+			int [] dist = calcNodeDistance(stationSelected);
+			label0.setText(1 + "");
+			label1.setText(dist[0]+ "");
+			label2.setText(dist[1]+ "");
+			label3.setText(dist[2]+ "");
+			label4.setText(dist[3]+ "");
+			
+		});
+		addStation.addActionListener((e) ->
+		{
+			if(addArea.getText().length() == 4)
+			{
+				
+			}
 		});
 		//Big Text Box
 		bigBox.setPreferredSize(new Dimension(200, 150));
