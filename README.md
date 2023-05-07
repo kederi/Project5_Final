@@ -1,9 +1,11 @@
 # Documentation
 
-## Problem: Develop a GUI system that can calculate Hamming Distance and utilize various components and Action Listeners
+## Problem: 
+Develop a GUI system that can calculate Hamming Distance and utilize various components and Action Listeners
 in order to display stations with same hamming distance and nodes.
 
-## Problem Solving: My intial thoughts were how to organize the GUI system, I was unsure of how to put the panels in the JFrame and
+## Problem Solving: 
+My intial thoughts were how to organize the GUI system, I was unsure of how to put the panels in the JFrame and
 eventually came to the conclusion of using a BorderLayout to structure my Frame. I worked methodically through my project and then 
 saw that BorderLayout was a highly ineffective way to structure my Frame. I then lessened the amount of Panels I had and had fewer
 BorderLayouts to format my Frame better
